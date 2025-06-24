@@ -10,9 +10,7 @@ async function bootstrap() {
   const config = new DocumentBuilder()
     .setTitle('URL Shortener API')
     .setDescription(`
-# URL Shortener API
-
-API REST completa para encurtamento de URLs com autenticação JWT, contagem de cliques e gerenciamento de usuários.
+## API REST completa para encurtamento de URLs com autenticação JWT, contagem de cliques e gerenciamento de usuários.
 
 ## Funcionalidades
 
@@ -96,7 +94,7 @@ src/
     )
     .addServer('http://localhost:3004', 'Servidor Local')
     .build();
-  
+
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document, {
     swaggerOptions: {

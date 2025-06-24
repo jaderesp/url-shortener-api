@@ -1,0 +1,33 @@
+version: '3.8'
+services:
+  db:
+    image: postgres:15
+    restart: always
+    environment:
+      POSTGRES_DB: shortenerUrl
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password123
+    ports:
+      - '5432:5432'
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+  app:
+    build: .
+    command: sh -c "sleep 15 && npm run start:dev"
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    ports:
+      - '3001:3000'
+    environment:
+      DATABASE_HOST: db
+      DATABASE_PORT: 5432
+      DATABASE_USER: postgres
+      DATABASE_PASSWORD: password123
+      DATABASE_NAME: shortenerUrl
+      JWT_SECRET: changeme
+      NODE_ENV: development
+    depends_on:
+      - db
+volumes:
+  pgdata:

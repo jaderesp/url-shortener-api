@@ -6,21 +6,12 @@ import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
 import { ShortenerModule } from './shortener/shortener.module';
 import { AuthModule } from './auth/auth.module';
+import { sequelizeConfig } from './config/sequelize.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
-    SequelizeModule.forRoot({
-      dialect: 'postgres',
-      host: process.env.DATABASE_HOST,
-      port: Number(process.env.DATABASE_PORT),
-      username: process.env.DATABASE_USER,
-      password: process.env.DATABASE_PASSWORD,
-      database: process.env.DATABASE_NAME,
-      autoLoadModels: true,
-      synchronize: true, // Em produção, usar migrations!
-      logging: false,
-    }),
+    sequelizeConfig,
     UsersModule,
     ShortenerModule,
     AuthModule,
@@ -29,4 +20,4 @@ import { AuthModule } from './auth/auth.module';
   controllers: [],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule { }

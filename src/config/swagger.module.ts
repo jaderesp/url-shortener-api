@@ -28,28 +28,28 @@ Authorization: Bearer {seu_token_jwt}
 
 ### 1. Cadastrar usuário
 \`\`\`bash
-curl -X POST http://localhost:3004/auth/register \\
+curl -X POST http://localhost:${process.env.PORT || 3000}/auth/register \\
 -H "Content-Type: application/json" \\
 -d '{"email": "usuario@exemplo.com", "password": "123456"}'
 \`\`\`
 
 ### 2. Fazer login
 \`\`\`bash
-curl -X POST http://localhost:3004/auth/login \\
+curl -X POST http://localhost:${process.env.PORT || 3000}/auth/login \\
 -H "Content-Type: application/json" \\
 -d '{"email": "usuario@exemplo.com", "password": "123456"}'
 \`\`\`
 
 ### 3. Encurtar URL (sem autenticação)
 \`\`\`bash
-curl -X POST http://localhost:3004/shorten \\
+curl -X POST http://localhost:${process.env.PORT || 3000}/shorten \\
 -H "Content-Type: application/json" \\
 -d '{"url": "https://www.google.com"}'
 \`\`\`
 
 ### 4. Encurtar URL (com autenticação)
 \`\`\`bash
-curl -X POST http://localhost:3004/shorten \\
+curl -X POST http://localhost:${process.env.PORT || 3000}/shorten \\
 -H "Content-Type: application/json" \\
 -H "Authorization: Bearer {seu_token}" \\
 -d '{"url": "https://www.github.com"}'
@@ -89,7 +89,8 @@ src/
             },
             'JWT-auth', // This name here is important for references
         )
-        .addServer('http://localhost:3004', 'Servidor Local')
+        .addServer(`http://localhost:${process.env.PORT || 3000}`, 'Servidor Local HTTP')
+        .addServer(`https://localhost:${process.env.PORT || 3000}`, 'Servidor Local HTTPS')
         .build();
 
     const document = SwaggerModule.createDocument(app, config);
@@ -99,6 +100,11 @@ src/
             docExpansion: 'list',
             filter: true,
             showRequestDuration: true,
+            tryItOutEnabled: true,
+            requestInterceptor: (req: any) => {
+                req.headers['Content-Type'] = 'application/json';
+                return req;
+            },
         },
         customSiteTitle: 'URL Shortener API - Documentação',
     })

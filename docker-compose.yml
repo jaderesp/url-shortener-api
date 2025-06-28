@@ -27,6 +27,7 @@ services:
       DATABASE_NAME: shortenerUrl
       JWT_SECRET: changeme
       NODE_ENV: development
+      DOMAIN: http://localhost:3001
     depends_on:
       - db
 volumes:

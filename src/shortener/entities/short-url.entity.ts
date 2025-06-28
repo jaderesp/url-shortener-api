@@ -1,5 +1,5 @@
 import { Table, Column, Model, DataType, PrimaryKey, AutoIncrement, AllowNull, ForeignKey, BelongsTo, CreatedAt, UpdatedAt, DeletedAt } from 'sequelize-typescript';
-import { User } from '../users/user.model';
+import { User } from '../../users/entities/user.entity';
 
 @Table({ tableName: 'short_urls', paranoid: true })
 export class ShortUrl extends Model<ShortUrl> {

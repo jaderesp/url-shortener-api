@@ -1,31 +1,10 @@
 import { Controller, Post, Body, Get, Param, Res, Req, UseGuards, Patch, Delete, NotFoundException } from '@nestjs/common';
 import { ShortenerService } from './shortener.service';
-import { IsString, IsOptional, IsUrl } from 'class-validator';
+import { ApiTags, ApiOperation, ApiResponse, ApiBody, ApiParam, ApiBearerAuth, ApiHeader } from '@nestjs/swagger';
+import { ShortenDto } from './dto/shorten.dto';
+import { UpdateUrlDto } from './dto/update-url.dto';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { Response, Request } from 'express';
-import { AuthGuard } from '@nestjs/passport';
-import { ApiTags, ApiOperation, ApiResponse, ApiBody, ApiParam, ApiBearerAuth, ApiHeader } from '@nestjs/swagger';
-import { ApiProperty } from '@nestjs/swagger';
-
-class ShortenDto {
-  @ApiProperty({
-    description: 'URL original que será encurtada',
-    example: 'https://www.google.com/search?q=nestjs+tutorial',
-    type: String
-  })
-  @IsUrl()
-  url: string;
-}
-
-class UpdateUrlDto {
-  @ApiProperty({
-    description: 'Nova URL de destino',
-    example: 'https://www.github.com/nestjs/nest',
-    type: String
-  })
-  @IsUrl()
-  url: string;
-}
 
 @ApiTags('Encurtador de URLs')
 @Controller()
@@ -143,7 +122,7 @@ export class ShortenerController {
     return res.redirect(url.originalUrl);
   }
 
-  @UseGuards(AuthGuard('jwt'))
+  @UseGuards(JwtAuthGuard)
   @Get('me/short-urls')
   @ApiOperation({
     summary: 'Listar URLs do usuário',
@@ -183,7 +162,7 @@ export class ShortenerController {
     return this.shortenerService.listByUser(req.user.sub);
   }
 
-  @UseGuards(AuthGuard('jwt'))
+  @UseGuards(JwtAuthGuard)
   @Patch('me/short-urls/:id')
   @ApiOperation({
     summary: 'Atualizar URL de destino',
@@ -230,7 +209,7 @@ export class ShortenerController {
     return this.shortenerService.updateUrl(id, req.user.sub, body.url);
   }
 
-  @UseGuards(AuthGuard('jwt'))
+  @UseGuards(JwtAuthGuard)
   @Delete('me/short-urls/:id')
   @ApiOperation({
     summary: 'Deletar URL encurtada',

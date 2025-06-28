@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { SequelizeModule } from '@nestjs/sequelize';
-import { ShortUrl } from './short-url.model';
+import { ShortUrl } from './entities/short-url.entity';
 import { ShortenerService } from './shortener.service';
 import { ShortenerController } from './shortener.controller';
 
@@ -10,4 +10,4 @@ import { ShortenerController } from './shortener.controller';
   providers: [ShortenerService],
   controllers: [ShortenerController],
 })
-export class ShortenerModule {} 
+export class ShortenerModule { } 

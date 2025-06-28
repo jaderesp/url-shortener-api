@@ -1,4 +1,4 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { Injectable, UnauthorizedException, ConflictException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { UsersService } from '../users/users.service';
 
@@ -15,6 +15,25 @@ export class AuthService {
     const valid = await this.usersService.validatePassword(user, password);
     if (!valid) throw new UnauthorizedException('Invalid credentials');
     return user;
+  }
+
+  async register(email: string, password: string) {
+    // Verificar se o usuário já existe
+    const existingUser = await this.usersService.findByEmail(email);
+    if (existingUser) {
+      throw new ConflictException('User already exists');
+    }
+
+    // Criar o usuário
+    const user = await this.usersService.create(email, password);
+    
+    // Gerar token JWT
+    const payload = { sub: user.id, email: user.email };
+    return {
+      id: user.id,
+      email: user.email,
+      access_token: this.jwtService.sign(payload),
+    };
   }
 
   async login(email: string, password: string) {

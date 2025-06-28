@@ -1,15 +1,14 @@
 import { Injectable, NotFoundException, ForbiddenException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
-import { ShortUrl } from './short-url.model';
-import { User } from '../users/user.model';
-import { Op } from 'sequelize';
+import { ShortUrl } from './entities/short-url.entity';
+
 
 @Injectable()
 export class ShortenerService {
   constructor(
     @InjectModel(ShortUrl)
     private shortUrlModel: typeof ShortUrl,
-  ) {}
+  ) { }
 
   private generateShortCode(length = 6) {
     const chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';

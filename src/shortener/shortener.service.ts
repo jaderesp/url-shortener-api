@@ -43,7 +43,11 @@ export class ShortenerService {
   }
 
   async listByUser(userId: number) {
-    return this.shortUrlModel.findAll({ where: { userId }, paranoid: true });
+    return this.shortUrlModel.findAll({
+      where: { userId },
+      order: [['createdAt', 'DESC']],
+      paranoid: true,
+    });
   }
 
   async updateUrl(id: string, userId: number, newUrl: string) {

@@ -313,3 +313,51 @@ Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para ma
 ---
 
 **Desenvolvido com ❤️ usando NestJS**
+
+## Ambiente de Produção
+
+A API está disponível publicamente em:
+
+- **Swagger (Documentação e Testes):** [https://url-shortener-api-swde.onrender.com/api](https://url-shortener-api-swde.onrender.com/api)
+- **Base URL da API:** `https://url-shortener-api-swde.onrender.com`
+
+### Exemplos de uso
+
+#### 1. Cadastrar usuário
+```bash
+curl -X POST https://url-shortener-api-swde.onrender.com/auth/register \
+  -H "Content-Type: application/json" \
+  -d '{"email": "usuario@exemplo.com", "password": "123456"}'
+```
+
+#### 2. Fazer login
+```bash
+curl -X POST https://url-shortener-api-swde.onrender.com/auth/login \
+  -H "Content-Type: application/json" \
+  -d '{"email": "usuario@exemplo.com", "password": "123456"}'
+```
+
+#### 3. Encurtar URL (sem autenticação)
+```bash
+curl -X POST https://url-shortener-api-swde.onrender.com/shorten \
+  -H "Content-Type: application/json" \
+  -d '{"url": "https://www.google.com"}'
+```
+
+#### 4. Encurtar URL (com autenticação)
+```bash
+curl -X POST https://url-shortener-api-swde.onrender.com/shorten \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer {seu_token}" \
+  -d '{"url": "https://www.github.com"}'
+```
+
+#### 5. Listar URLs do usuário autenticado
+```bash
+curl -X GET https://url-shortener-api-swde.onrender.com/me/short-urls \
+  -H "Authorization: Bearer {seu_token}"
+```
+
+Para mais detalhes e testes interativos, acesse a documentação Swagger:
+
+👉 [https://url-shortener-api-swde.onrender.com/api](https://url-shortener-api-swde.onrender.com/api)

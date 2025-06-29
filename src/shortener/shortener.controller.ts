@@ -135,7 +135,7 @@ export class ShortenerController {
     summary: 'Listar URLs do usuário',
     description: 'Lista todas as URLs encurtadas pelo usuário autenticado, incluindo contagem de cliques.'
   })
-  @ApiBearerAuth()
+  @ApiBearerAuth('JWT-auth')
   @ApiResponse({
     status: 200,
     description: 'Lista de URLs do usuário',
@@ -175,7 +175,7 @@ export class ShortenerController {
     summary: 'Atualizar URL de destino',
     description: 'Atualiza a URL de destino de um link encurtado pertencente ao usuário autenticado.'
   })
-  @ApiBearerAuth()
+  @ApiBearerAuth('JWT-auth')
   @ApiParam({
     name: 'id',
     description: 'ID da URL encurtada',
@@ -222,7 +222,7 @@ export class ShortenerController {
     summary: 'Deletar URL encurtada',
     description: 'Remove uma URL encurtada do usuário autenticado (soft delete - não remove fisicamente do banco).'
   })
-  @ApiBearerAuth()
+  @ApiBearerAuth('JWT-auth')
   @ApiParam({
     name: 'id',
     description: 'ID da URL encurtada',

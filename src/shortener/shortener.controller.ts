@@ -87,7 +87,13 @@ export class ShortenerController {
     const userId = req.user?.sub;
     console.log('userId recebido no shorten:', userId);
     const shortUrl = await this.shortenerService.create(body.url, userId);
-    return { shortUrl: `${process.env.BASE_URL || 'http://localhost:3004'}/u/${shortUrl.shortCode}` };
+    let baseUrl = process.env.BASE_URL;
+    if (!baseUrl) {
+      const protocol = req.protocol;
+      const host = req.get('host');
+      baseUrl = `${protocol}://${host}`;
+    }
+    return { shortUrl: `${baseUrl}/u/${shortUrl.shortCode}` };
   }
 
   @Get('u/:shortCode')

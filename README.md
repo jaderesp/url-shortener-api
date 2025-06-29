@@ -1,221 +1,314 @@
-
-  <p align="center">API para encurtamento de urls desenvolvida em <a href="http://nodejs.org" target="_blank">Node.js</a> com framework Nest.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
-
 # URL Shortener API
 
-## Descritivo
+<p align="center">
+  <img src="https://img.shields.io/badge/Node.js-20.0.0+-green" alt="Node.js Version" />
+  <img src="https://img.shields.io/badge/NestJS-11.0.0+-red" alt="NestJS Version" />
+  <img src="https://img.shields.io/badge/PostgreSQL-15+-blue" alt="PostgreSQL Version" />
+  <img src="https://img.shields.io/badge/Docker-Compose-required-orange" alt="Docker Compose" />
+</p>
 
-API REST completa para encurtamento de URLs, com autenticação JWT, contagem de cliques, soft delete, documentação Swagger detalhada e testes.
+## 📋 Descrição
+
+API REST completa para encurtamento de URLs desenvolvida em **NestJS** com as seguintes funcionalidades:
+
+- 🔐 **Autenticação JWT** com cadastro e login de usuários
+- 🔗 **Encurtamento de URLs** com códigos de até 6 caracteres
+- 📊 **Contagem de cliques** em tempo real
+- 👤 **Gerenciamento de URLs** para usuários autenticados
+- 🗑️ **Soft delete** para preservação de dados
+- 📚 **Documentação Swagger** interativa
+- 🧪 **Testes unitários e de integração**
+- 🐳 **Containerização** com Docker Compose
 
 ## 🚀 Tecnologias
-- **NestJS** - Framework Node.js
-- **Sequelize** - ORM para PostgreSQL
-- **JWT Auth** - Autenticação com tokens
-- **Docker Compose** - Containerização
-- **Swagger/OpenAPI** - Documentação interativa
-- **Jest** - Testes unitários
-- **class-validator** - Validação de dados
 
-## 📋 Funcionalidades
+- **[NestJS](https://nestjs.com/)** - Framework Node.js para aplicações escaláveis
+- **[Sequelize](https://sequelize.org/)** - ORM para PostgreSQL
+- **[JWT](https://jwt.io/)** - Autenticação baseada em tokens
+- **[PostgreSQL](https://www.postgresql.org/)** - Banco de dados relacional
+- **[Docker](https://www.docker.com/)** - Containerização da aplicação
+- **[Swagger](https://swagger.io/)** - Documentação da API
+- **[Jest](https://jestjs.io/)** - Framework de testes
+- **[class-validator](https://github.com/typestack/class-validator)** - Validação de dados
 
-### ✅ Implementadas
-- **Autenticação JWT** (cadastro/login)
-- **Encurtamento de URLs** (máximo 6 caracteres)
-- **Redirecionamento e contagem de cliques**
-- **Soft delete** (paranoid: true)
-- **CRUD de URLs para usuários autenticados**
-- **Validação de entrada** (class-validator)
-- **Documentação Swagger completa**
-- **Docker Compose** (PostgreSQL + NestJS)
-
-## 🛠️ Como rodar localmente
+## 📦 Instalação
 
 ### Pré-requisitos
-- Docker e Docker Compose instalados
-- Node.js >= 20.0.0
 
-### Subindo o ambiente
+- [Docker](https://docs.docker.com/get-docker/) e [Docker Compose](https://docs.docker.com/compose/install/)
+- [Node.js](https://nodejs.org/) >= 20.0.0 (para desenvolvimento local)
+
+### 🐳 Usando Docker (Recomendado)
+
 ```bash
-# Clonar e entrar no projeto
-git clone <seu-repositorio>
+# 1. Clone o repositório
+git clone https://github.com/seu-usuario/url-shortener.git
 cd url-shortener
 
-# Subir com Docker Compose
+# 2. Configure as variáveis de ambiente
+cp .env.example .env
+# Edite o arquivo .env com suas configurações
+
+# 3. Execute com Docker Compose
 docker-compose up --build
+
+# 4. Acesse a aplicação
+# API: http://localhost:3001
+# Documentação: http://localhost:3001/api
 ```
 
-### Acessos
-- **API**: http://localhost:3004
-- **Documentação Swagger**: http://localhost:3004/api
+### 💻 Desenvolvimento Local
 
-## 📚 Documentação Swagger
+```bash
+# 1. Clone o repositório
+git clone https://github.com/seu-usuario/url-shortener.git
+cd url-shortener
 
-A documentação completa está disponível em **http://localhost:3004/api** com:
+# 2. Instale as dependências
+npm install
 
-- **Descrição detalhada** de cada endpoint
-- **Parâmetros e exemplos** de requisição
-- **Respostas e códigos de status**
-- **Autenticação JWT** integrada
-- **Teste interativo** dos endpoints
-- **Exemplos de uso** com curl
+# 3. Configure o banco de dados PostgreSQL
+# Certifique-se de que o PostgreSQL está rodando
 
-### Seções da Documentação:
-1. **Autenticação** - Cadastro e login de usuários
-2. **Encurtador de URLs** - Gerenciamento de links encurtados
+# 4. Configure as variáveis de ambiente
+cp .env.example .env
+# Edite o arquivo .env
 
-## 🔧 Variáveis de ambiente
+# 5. Execute as migrações
+npm run migration:run
 
-Veja o arquivo `docker-compose.yml` para exemplos. Principais variáveis:
+# 6. Inicie o servidor de desenvolvimento
+npm run start:dev
+```
+
+## 🔧 Configuração
+
+### Variáveis de Ambiente
+
+Crie um arquivo `.env` na raiz do projeto:
 
 ```env
 # Database
-DATABASE_HOST=db
+DATABASE_HOST=localhost
 DATABASE_PORT=5432
 DATABASE_USER=postgres
 DATABASE_PASSWORD=password123
 DATABASE_NAME=shortenerUrl
 
 # JWT
-JWT_SECRET=changeme
+JWT_SECRET=sua_chave_secreta_muito_segura
 
-# App
+# Application
 NODE_ENV=development
-PORT=3000
-DOMAIN=http://localhost:3004
+PORT=3001
+DOMAIN=http://localhost:3001
 ```
 
-## 📡 Endpoints principais
+## 📚 Uso da API
 
 ### 🔐 Autenticação
-- `POST /auth/register` — Cadastro de usuário
-- `POST /auth/login` — Login (retorna Bearer Token)
 
-### 🔗 Encurtamento
-- `POST /shorten` — Encurtar URL (autenticado ou não)
-- `GET /u/:shortCode` — Redireciona para URL original e contabiliza clique
+#### Cadastro de Usuário
+```bash
+curl -X POST http://localhost:3001/auth/register \
+  -H "Content-Type: application/json" \
+  -d '{
+    "email": "usuario@exemplo.com",
+    "password": "senha123"
+  }'
+```
 
-### 👤 Usuário Autenticado
-- `GET /me/short-urls` — Listar URLs do usuário + cliques
-- `PATCH /me/short-urls/:id` — Editar URL de destino
-- `DELETE /me/short-urls/:id` — Deletar URL (soft delete)
+#### Login
+```bash
+curl -X POST http://localhost:3001/auth/login \
+  -H "Content-Type: application/json" \
+  -d '{
+    "email": "usuario@exemplo.com",
+    "password": "senha123"
+  }'
+```
 
-### 🧪 Teste
-- `GET /test` — Teste da API e configurações
+### 🔗 Encurtamento de URLs
+
+#### Criar URL Encurtada (sem autenticação)
+```bash
+curl -X POST http://localhost:3001/shorten \
+  -H "Content-Type: application/json" \
+  -d '{
+    "url": "https://www.google.com"
+  }'
+```
+
+#### Criar URL Encurtada (com autenticação)
+```bash
+curl -X POST http://localhost:3001/shorten \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer SEU_TOKEN_JWT" \
+  -d '{
+    "url": "https://www.github.com"
+  }'
+```
+
+#### Acessar URL Encurtada
+```bash
+curl -L http://localhost:3001/u/CODIGO_ENCURTADO
+```
+
+### 👤 Gerenciamento de URLs (Autenticado)
+
+#### Listar URLs do Usuário
+```bash
+curl -X GET http://localhost:3001/me/short-urls \
+  -H "Authorization: Bearer SEU_TOKEN_JWT"
+```
+
+#### Atualizar URL
+```bash
+curl -X PATCH http://localhost:3001/me/short-urls/1 \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer SEU_TOKEN_JWT" \
+  -d '{
+    "url": "https://www.nova-url.com"
+  }'
+```
+
+#### Deletar URL
+```bash
+curl -X DELETE http://localhost:3001/me/short-urls/1 \
+  -H "Authorization: Bearer SEU_TOKEN_JWT"
+```
+
+## 📖 Documentação da API
+
+A documentação completa está disponível em **http://localhost:3001/api** quando a aplicação estiver rodando.
+
+### Endpoints Disponíveis
+
+| Método | Endpoint | Descrição | Autenticação |
+|--------|----------|-----------|--------------|
+| `POST` | `/auth/register` | Cadastro de usuário | ❌ |
+| `POST` | `/auth/login` | Login de usuário | ❌ |
+| `POST` | `/shorten` | Encurtar URL | ⚪ Opcional |
+| `GET` | `/u/:shortCode` | Redirecionar para URL original | ❌ |
+| `GET` | `/me/short-urls` | Listar URLs do usuário | ✅ |
+| `PATCH` | `/me/short-urls/:id` | Atualizar URL | ✅ |
+| `DELETE` | `/me/short-urls/:id` | Deletar URL | ✅ |
+| `GET` | `/test` | Teste da API | ❌ |
 
 ## 🧪 Testes
+
+### Executar Testes Unitários
 ```bash
-# Testes unitários
 npm run test
+```
 
-# Testes com coverage
+### Executar Testes com Coverage
+```bash
 npm run test:cov
+```
 
-# Testes e2e
+### Executar Testes E2E
+```bash
 npm run test:e2e
 ```
 
-## 📊 Pontos de melhoria para escala horizontal
+### Executar Testes de Integração
+```bash
+npm run test:integration
+```
 
-### 🔄 Cache e Performance
-- **Redis** para cache de redirecionamentos
-- **CDN** para distribuição global
-- **Rate limiting** por IP/usuário
+### Executar Todos os Testes
+```bash
+npm run test:all
+```
 
-### 🏗️ Arquitetura
-- **Load balancer** (nginx/traefik)
-- **Múltiplas instâncias** da aplicação
-- **Microserviços** (separar auth, shortener, analytics)
-- **Message queues** (RabbitMQ/Kafka) para métricas
+## 🏗️ Estrutura do Projeto
 
-### 📈 Monitoramento
-- **Prometheus + Grafana** para métricas
-- **ELK Stack** para logs
-- **Jaeger** para tracing distribuído
-- **Health checks** e circuit breakers
-
-### 🗄️ Banco de Dados
-- **Read replicas** para consultas
-- **Sharding** por domínio/usuário
-- **Connection pooling** otimizado
-- **Backup automático** e recovery
-
-## 🔍 Observabilidade
-
-### 📝 Logs
-- Logs estruturados (NestJS Logger)
-- Níveis: error, warn, info, debug
-- Contexto: userId, requestId, endpoint
-
-### 📊 Métricas
-- Contadores de cliques por URL
-- Latência de redirecionamento
-- Taxa de erro por endpoint
-- Uso de recursos (CPU, memória)
-
-### 🔍 Rastreamento
-- OpenTelemetry para tracing
-- Correlação entre requisições
-- Performance de queries SQL
+```
+src/
+├── auth/                 # Autenticação JWT
+│   ├── auth.controller.ts
+│   ├── auth.service.ts
+│   └── jwt-auth.guard.ts
+├── users/                # Gerenciamento de usuários
+│   ├── users.service.ts
+│   └── user.entity.ts
+├── shortener/            # Encurtamento de URLs
+│   ├── shortener.controller.ts
+│   ├── shortener.service.ts
+│   ├── entities/
+│   │   └── short-url.entity.ts
+│   └── dto/
+│       ├── shorten.dto.ts
+│       └── update-url.dto.ts
+├── app.controller.ts     # Controller principal
+├── app.service.ts        # Serviço principal
+└── app.module.ts         # Módulo principal
+```
 
 ## 🚀 Deploy
 
-### Cloud Providers
-- **Heroku**: Deploy direto via Git
-- **AWS**: ECS + RDS + ElastiCache
-- **GCP**: Cloud Run + Cloud SQL
-- **Azure**: App Service + Azure SQL
-
-### Exemplo de Deploy
+### Docker
 ```bash
 # Build da imagem
 docker build -t url-shortener .
 
-# Push para registry
-docker push seu-registry/url-shortener
-
-# Deploy no Kubernetes
-kubectl apply -f k8s/
+# Executar container
+docker run -p 3001:3001 url-shortener
 ```
 
-## 🎯 Melhorias e diferenciais
+### Docker Compose (Produção)
+```bash
+# Usar docker-compose.prod.yml
+docker-compose -f docker-compose.prod.yml up -d
+```
 
-### 🔧 DevOps
-- **CI/CD** com GitHub Actions
-- **Infra as Code** com Terraform
-- **Kubernetes** manifests
-- **Helm charts** para deploy
+### Cloud Platforms
 
-### 🔒 Segurança
-- **Rate limiting** por endpoint
-- **CORS** configurado
-- **Helmet** para headers de segurança
-- **Validação** rigorosa de entrada
+#### Heroku
+```bash
+# Deploy direto
+git push heroku main
+```
 
-### 📈 Analytics
-- **Dashboard** de métricas
-- **Relatórios** de uso
-- **Export** de dados
-- **Webhooks** para eventos
+#### AWS ECS
+```bash
+# Build e push para ECR
+aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin $AWS_ACCOUNT.dkr.ecr.us-east-1.amazonaws.com
+docker tag url-shortener:latest $AWS_ACCOUNT.dkr.ecr.us-east-1.amazonaws.com/url-shortener:latest
+docker push $AWS_ACCOUNT.dkr.ecr.us-east-1.amazonaws.com/url-shortener:latest
+```
 
-### 🌐 Multi-tenant
-- **Organizações** e workspaces
-- **Planos** de uso (free, pro, enterprise)
-- **Quotas** e limites
-- **Billing** integrado
+## 🤝 Contribuição
 
----
+1. Faça um fork do projeto
+2. Crie uma branch para sua feature (`git checkout -b feature/AmazingFeature`)
+3. Commit suas mudanças (`git commit -m 'Add some AmazingFeature'`)
+4. Push para a branch (`git push origin feature/AmazingFeature`)
+5. Abra um Pull Request
+
+### Padrões de Código
+
+- Use TypeScript para todo o código
+- Siga as convenções do NestJS
+- Escreva testes para novas funcionalidades
+- Mantenha a documentação atualizada
+
+## 📄 Licença
+
+Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
 
 ## 📞 Suporte
 
-- **Documentação**: http://localhost:3004/api
-- **Issues**: GitHub Issues
-- **Email**: suporte@urlshortener.com
+- 📧 **Email**: suporte@urlshortener.com
+- 🐛 **Issues**: [GitHub Issues](https://github.com/seu-usuario/url-shortener/issues)
+- 📚 **Documentação**: http://localhost:3001/api
+
+## 🙏 Agradecimentos
+
+- [NestJS](https://nestjs.com/) - Framework incrível para Node.js
+- [Sequelize](https://sequelize.org/) - ORM robusto e flexível
+- [Swagger](https://swagger.io/) - Documentação de APIs
 
 ---
 

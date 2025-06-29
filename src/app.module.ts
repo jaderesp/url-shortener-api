@@ -13,9 +13,11 @@ import { sequelizeConfig } from './config/sequelize.module';
   imports: [
     ConfigModule.forRoot({ 
       isGlobal: true,
-      envFilePath: '.env',
+      envFilePath: ['.env', '.env.local', '.env.development'],
       cache: false,
       expandVariables: true,
+      ignoreEnvFile: false,
+      ignoreEnvVars: false,
     }),
     PassportModule.register({ defaultStrategy: 'jwt' }),
     sequelizeConfig,

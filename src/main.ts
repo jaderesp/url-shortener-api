@@ -5,6 +5,8 @@ import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { swaggerLoader } from './config/swagger.module';
+import { optionalJwtMiddleware } from './auth/optional-jwt.middleware';
+import { JwtService } from '@nestjs/jwt';
 
 
 async function bootstrap() {
@@ -42,6 +44,9 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
 
   swaggerLoader(app);
+
+  const jwtService = app.get(JwtService);
+  app.use('/shorten', optionalJwtMiddleware(jwtService));
 
   const port = process.env.PORT || 3000;
   await app.listen(port);

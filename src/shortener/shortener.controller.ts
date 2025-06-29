@@ -85,8 +85,9 @@ export class ShortenerController {
   })
   async shorten(@Body() body: ShortenDto, @Req() req: Request & { user?: any }) {
     const userId = req.user?.sub;
+    console.log('userId recebido no shorten:', userId);
     const shortUrl = await this.shortenerService.create(body.url, userId);
-    return { shortUrl: `${process.env.DOMAIN || 'http://localhost:3004'}/u/${shortUrl.shortCode}` };
+    return { shortUrl: `${process.env.BASE_URL || 'http://localhost:3004'}/u/${shortUrl.shortCode}` };
   }
 
   @Get('u/:shortCode')

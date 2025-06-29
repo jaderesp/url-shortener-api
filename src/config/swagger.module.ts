@@ -89,6 +89,7 @@ src/
             },
             'JWT-auth', // This name here is important for references
         )
+        .addServer(process.env.BASE_URL || 'http://localhost:3001', 'Servidor Externo')
         .addServer(`http://localhost:${process.env.PORT || 3000}`, 'Servidor Local HTTP')
         .addServer(`https://localhost:${process.env.PORT || 3000}`, 'Servidor Local HTTPS')
         .build();
